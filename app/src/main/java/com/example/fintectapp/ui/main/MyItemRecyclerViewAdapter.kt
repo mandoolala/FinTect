@@ -27,8 +27,22 @@ class MyItemRecyclerViewAdapter(
         val item = values[position]
         holder.idView.text = item.id
         holder.contentView.text = item.content
+        holder.itemView.setOnClickListener {
+            itemClickListner.onClick(it, position)
+        }
     }
 
+    interface ItemClickListener {
+        fun onClick(view: View, position: Int)
+    }
+
+    //클릭리스너 선언
+    private lateinit var itemClickListner: ItemClickListener
+
+    //클릭리스너 등록 매소드
+    fun setItemClickListener(itemClickListener: Any) {
+        this.itemClickListner = itemClickListener as ItemClickListener
+    }
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

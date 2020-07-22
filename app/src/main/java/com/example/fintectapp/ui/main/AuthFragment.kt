@@ -1,6 +1,8 @@
 package com.example.fintectapp.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,8 +42,18 @@ class AuthFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
+                //클릭리스너 등록
+                (adapter as MyItemRecyclerViewAdapter).setItemClickListener( object : MyItemRecyclerViewAdapter.ItemClickListener{
+                    override fun onClick(view: View, position: Int) {
+                        Log.d("SSS", "${position}번 리스트 선택")
+                        val intent = Intent(requireContext(), UploadActivity::class.java)
+                        startActivity(intent)
+
+                    }
+                })
             }
         }
+
         return view
     }
 
