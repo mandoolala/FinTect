@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FinTectApp</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="app_name">FinTect</string>
+    <string name="tab_text_1">인증 요청</string>
+    <string name="tab_text_2">인증 내역</string>
 </resources>
