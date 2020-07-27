@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:weightSum="3"
+    android:layout_height="70dp">
+
+    <TextView
+        android:id="@+id/register_page"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="회원 가입"
+        android:textSize="12dp"
+        />
+
+    <TextView
+        android:id="@+id/findId_page"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="아이디 찾기"
+        android:textSize="12dp"
+        />
+
+    <TextView
+        android:id="@+id/findPassword_page"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="비밀 번호 찾기"
+        android:textSize="12dp"
+        />
+
+
+
+</LinearLayout>
