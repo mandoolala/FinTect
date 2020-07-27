@@ -2,4 +2,16 @@
     <string name="app_name">FinTect</string>
     <string name="tab_text_1">인증 요청</string>
     <string name="tab_text_2">인증 내역</string>
+    <string name="upload_video">Upload Video</string>
+    <string name="UploadVideoText">
+위 문장을 소리내어 읽는 모습을
+본인의 얼굴이 잘 드러나도록\n
+촬영한 후 업로드 해주세요
+ </string>
+    <string name="UploadVideoText1">
+‘본인은 위 약관에 동의합니다’
+ </string>
+    <string name="UploadVideoText2">
+비대면 화상 약관 동의
+ </string>
 </resources>
