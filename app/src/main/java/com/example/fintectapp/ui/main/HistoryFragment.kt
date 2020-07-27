@@ -1,6 +1,8 @@
 package com.example.fintectapp.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.fintectapp.R
-import com.example.fintectapp.ui.main.dummy.DummyContent
+import com.example.fintectapp.ui.main.contents.HistoryContent
 
 /**
  * A fragment representing a list of Items.
@@ -39,7 +41,16 @@ class HistoryFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter2(DummyContent.ITEMS)
+                adapter = MyItemRecyclerViewAdapter2(HistoryContent.ITEMS)
+                //클릭리스너 등록
+                (adapter as MyItemRecyclerViewAdapter2).setItemClickListener( object : MyItemRecyclerViewAdapter2.ItemClickListener{
+                    override fun onClick(view: View, position: Int) {
+                        Log.d("SSS", "${position}번 리스트 선택")
+                        val intent = Intent(requireContext(), UploadActivity::class.java)
+                        startActivity(intent)
+
+                    }
+                })
             }
         }
         return view

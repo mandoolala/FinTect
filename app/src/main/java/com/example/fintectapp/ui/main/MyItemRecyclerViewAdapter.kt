@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.fintectapp.R
 
-import com.example.fintectapp.ui.main.dummy.DummyContent.DummyItem
+import com.example.fintectapp.ui.main.contents.AuthContent.DummyItem
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].

@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.fintectapp.R
-import com.example.fintectapp.ui.main.dummy.DummyContent
+import com.example.fintectapp.ui.main.contents.AuthContent
 
 /**
  * A fragment representing a list of Items.
@@ -41,7 +41,7 @@ class AuthFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = MyItemRecyclerViewAdapter(AuthContent.ITEMS)
                 //클릭리스너 등록
                 (adapter as MyItemRecyclerViewAdapter).setItemClickListener( object : MyItemRecyclerViewAdapter.ItemClickListener{
                     override fun onClick(view: View, position: Int) {
