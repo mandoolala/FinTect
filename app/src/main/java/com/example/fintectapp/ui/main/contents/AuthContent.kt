@@ -1,4 +1,4 @@
-package com.example.fintectapp.ui.main.dummy
+package com.example.fintectapp.ui.main.contents
 
 import java.util.ArrayList
 import java.util.HashMap
@@ -9,7 +9,7 @@ import java.util.HashMap
  *
  * TODO: Replace all uses of this class before publishing your app.
  */
-object DummyContent {
+object AuthContent {
 
     /**
      * An array of sample (dummy) items.
@@ -21,13 +21,14 @@ object DummyContent {
      */
     val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
 
-    private val COUNT = 5
+    private val COUNT = 4
 
     init {
         // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
-        }
+        addItem(createDummyItem("NH농협은행", 1, false))
+        addItem(createDummyItem("KB국민은행",2, false))
+        addItem(createDummyItem("IBK투자증권", 3, false))
+        addItem(createDummyItem("신한카드", 4, false))
     }
 
     private fun addItem(item: DummyItem) {
@@ -35,8 +36,8 @@ object DummyContent {
         ITEM_MAP.put(item.id, item)
     }
 
-    private fun createDummyItem(position: Int): DummyItem {
-        return DummyItem(position.toString(), "Item " + position, makeDetails(position))
+    private fun createDummyItem(name: String, position: Int, flag: Boolean): DummyItem {
+        return DummyItem(position.toString(), name, flag, makeDetails(position))
     }
 
     private fun makeDetails(position: Int): String {
@@ -51,7 +52,7 @@ object DummyContent {
     /**
      * A dummy item representing a piece of content.
      */
-    data class DummyItem(val id: String, val content: String, val details: String) {
+    data class DummyItem(val id: String, val content: String, val flag: Boolean, val details: String) {
         override fun toString(): String = content
     }
 }
