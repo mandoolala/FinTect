@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
@@ -67,7 +68,8 @@ class UploadActivity : AppCompatActivity() {
                     Log.e("PATH",selectedImagePath)
                     // PATH는 잘 저장되어 있음
                     // 여기서 FireBase로 전송하면 될 듯
-                    startActivity(intent)
+                    Toast.makeText(this, "비디오 업로드 성공!", Toast.LENGTH_SHORT).show()
+//                    startActivity(intent)
                 }
             }
         }
