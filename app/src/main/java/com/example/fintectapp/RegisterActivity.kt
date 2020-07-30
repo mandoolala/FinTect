@@ -16,8 +16,7 @@ class RegisterActivity : AppCompatActivity() {
                 createData(register_email_area.text.toString(), register_phoneNumber_area.text.toString())
                 createUserId(register_email_area.text.toString(), register_password_area.text.toString())
 //                auth?.signOut()
-                val intent = Intent(this, MainActivity::class.java)
-                TODO("MainActivity로 넘어가기 전에 로그인 시키고 바로 Main ㄱㄱ" )
+                val intent = Intent(this, RegisterAgreementActivity::class.java)
                 startActivity(intent)
             }
             else {
