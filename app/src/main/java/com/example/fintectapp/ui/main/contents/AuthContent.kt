@@ -25,10 +25,10 @@ object AuthContent {
 
     init {
         // Add some sample items.
-        addItem(createDummyItem("NH농협은행", 1, false))
-        addItem(createDummyItem("KB국민은행",2, false))
-        addItem(createDummyItem("IBK투자증권", 3, false))
-        addItem(createDummyItem("신한카드", 4, false))
+        addItem(createDummyItem("NH농협은행", 1, "20.03.05", false))
+        addItem(createDummyItem("KB국민은행",2, "20.05.06",false))
+        addItem(createDummyItem("IBK투자증권", 3, "20.07.19",false))
+        addItem(createDummyItem("신한카드", 4, "20.06.05",false))
     }
 
     private fun addItem(item: DummyItem) {
@@ -36,23 +36,20 @@ object AuthContent {
         ITEM_MAP.put(item.id, item)
     }
 
-    private fun createDummyItem(name: String, position: Int, flag: Boolean): DummyItem {
-        return DummyItem(position.toString(), name, flag, makeDetails(position))
+    private fun createDummyItem(name: String, position: Int, date: String, flag: Boolean): DummyItem {
+        return DummyItem(position.toString(), name,  makeDate(date), flag)
     }
 
-    private fun makeDetails(position: Int): String {
+    private fun makeDate(date: String): String {
         val builder = StringBuilder()
-        builder.append("Details about Item: ").append(position)
-        for (i in 0..position - 1) {
-            builder.append("\nMore details information here.")
-        }
+        builder.append("요청 일자: ").append(date)
         return builder.toString()
     }
 
     /**
      * A dummy item representing a piece of content.
      */
-    data class DummyItem(val id: String, val content: String, val flag: Boolean, val details: String) {
+    data class DummyItem(val id: String, val content: String, val date: String, val flag: Boolean) {
         override fun toString(): String = content
     }
 }

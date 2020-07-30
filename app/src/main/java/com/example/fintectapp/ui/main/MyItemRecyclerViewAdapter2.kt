@@ -25,7 +25,7 @@ class MyItemRecyclerViewAdapter2(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
+        holder.statusView.text = item.status
         holder.contentView.text = item.content
         holder.itemView.setOnClickListener {
             itemClickListner.onClick(it, position)
@@ -46,7 +46,7 @@ class MyItemRecyclerViewAdapter2(
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.item_number)
+        val statusView: TextView = view.findViewById(R.id.itemStatus)
         val contentView: TextView = view.findViewById(R.id.content)
 
         override fun toString(): String {
