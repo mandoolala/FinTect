@@ -46,8 +46,8 @@ class HistoryFragment : Fragment() {
                 (adapter as MyItemRecyclerViewAdapter2).setItemClickListener( object : MyItemRecyclerViewAdapter2.ItemClickListener{
                     override fun onClick(view: View, position: Int) {
                         Log.d("SSS", "${position}번 리스트 선택")
-//                        val intent = Intent(requireContext(), UploadActivity::class.java)
-//                        startActivity(intent)
+                        val intent = Intent(requireContext(), ResultDetailActivity::class.java)
+                        startActivity(intent)
                     }
                 })
             }

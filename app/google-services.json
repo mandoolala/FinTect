@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "683915302824",
+    "firebase_url": "https://fintect-ff87d.firebaseio.com",
+    "project_id": "fintect-ff87d",
+    "storage_bucket": "fintect-ff87d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683915302824:android:5aee30debf7c0bd8f82f9d",
+        "android_client_info": {
+          "package_name": "com.example.fintectapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683915302824-49qquhgchrt965nc5kru4qisdgi88kmv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fintectapp",
+            "certificate_hash": "c9346a7a02c99a6d96c7e09a4d888b32199e3219"
+          }
+        },
+        {
+          "client_id": "683915302824-pjf41ijtek2s5ai38crn67ggb7pbv6rq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBntWPbYIBGc8Kb1qTuXTbiGOYW_Sjrdmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683915302824-pjf41ijtek2s5ai38crn67ggb7pbv6rq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

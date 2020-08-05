@@ -26,11 +26,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createData(email: String, phone: String) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
 
     }
 
     private fun createUserId(email: String, phone: String) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 }

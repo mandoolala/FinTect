@@ -22,4 +22,10 @@
         - 개인정보의 수집 및 이용에 관한 사항- 수집하는 개인정보 항목 (이력서 양식 내용 일체) : 성명, 주민등록번호, 전화번호, 주소, 이메일, 가족관계, 학력사항, 경력사항, 자격사항 등과 그 外 이력서 기재 내용 일체- 개인정보의 이용 목적 : 수집된 개인정보를 사업장 신규 채용 서류 심사 및 인사서류로 활용하며, 목적 외의 용도로는 사용하지 않습니다. \n \n
         - 개인정보의 보관 및 이용 기간- 귀하의 개인정보를 다음과 같이 보관하며, 수집, 이용 및 제공목적이 달성된 경우 [개인정보 보호법] 제21조에 따라 처리합니다.
     </string>
+    <string name="UploadSuccessMsg">비대면 화상 약관 동의가\n
+        정상적으로 접수되었습니다</string>
+    <string name="buttonToHome">홈으로</string>
+    <string name="buttonToMain">동의 내역 확인</string>
+    <string name="ResultMsg">귀하의 영상은 비대면 화상 약관 동의에\n아래와 같은 이유로 승인이 거절되었습니다.</string>
+    <string name="ResultPercentageMsg">- 영상 조작 가능성 : 85% </string>
 </resources>

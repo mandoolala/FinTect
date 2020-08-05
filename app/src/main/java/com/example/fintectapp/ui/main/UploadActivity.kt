@@ -72,14 +72,15 @@ class UploadActivity : AppCompatActivity() {
                 if (selectedImagePath != null) {
                     val intent = Intent(
                         this,
-                        UploadActivity::class.java
+                        UploadSuccessActivity::class.java
                     )
                     intent.putExtra("path", selectedImagePath)
                     Log.e("PATH",selectedImagePath)
                     // PATH는 잘 저장되어 있음
                     // 여기서 FireBase로 전송하면 될 듯
                     Toast.makeText(this, "비디오 업로드 성공!", Toast.LENGTH_SHORT).show()
-//                    startActivity(intent)
+                    startActivity(intent)
+
                 }
             }
         }
