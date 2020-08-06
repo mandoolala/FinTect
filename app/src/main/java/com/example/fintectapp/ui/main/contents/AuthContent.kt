@@ -27,11 +27,14 @@ object AuthContent {
 
     init {
         // Add items(collection : "company") from firestore where flag is true
-        db.collection("company")
-            .whereEqualTo("flag", false)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
+        val query = db.collection("company").whereEqualTo("flag", false)
+        val registration = query.addSnapshotListener { documents, e ->
+                if (e != null) {
+                    Log.w("DB", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                for (document in documents!!) {
                     Log.d("DATA", "${document?.data}")
                     val name: String = document?.data?.get("name") as String
                     val position: Int = (document?.data?.get("position") as Long)?.toInt()
@@ -40,9 +43,13 @@ object AuthContent {
                     addItem(createDummyItem(name, position, date, flag))
                     COUNT += 1
                 }
-            }.addOnFailureListener { exception ->
-                Log.e("DATA", "Error getting documents: ", exception)
             }
+
+        if (COUNT > 0) {
+            registration.remove()
+        } else {
+            registration
+        }
     }
 
     private fun addItem(item: DummyItem) {

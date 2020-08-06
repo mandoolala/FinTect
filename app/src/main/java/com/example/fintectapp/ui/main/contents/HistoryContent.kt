@@ -27,23 +27,29 @@ object HistoryContent {
     private var COUNT = 0
 
     init {
-        // Add some sample items.
-        db.collection("company")
-            .whereEqualTo("flag", true)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("DATA", "${document?.data}")
-                    val name: String = document?.data?.get("name") as String
-                    val position: Int = (document?.data?.get("position") as Long)?.toInt()
-                    val status: String = document?.data?.get("status") as String
-                    val flag: Boolean = document?.data?.get("flag") as Boolean
-                    addItem(createDummyItem(name, position, status, flag))
-                    COUNT += 1
-                }
-            }.addOnFailureListener { exception ->
-                Log.e("DATA", "Error getting documents: ", exception)
+        val query = db.collection("company").whereEqualTo("flag", true)
+        val registration = query.addSnapshotListener { documents, e ->
+            if (e != null) {
+                Log.w("DB", "Listen failed.", e)
+                return@addSnapshotListener
             }
+
+            for (document in documents!!) {
+                Log.d("DATA", "${document?.data}")
+                val name: String = document?.data?.get("name") as String
+                val position: Int = (document?.data?.get("position") as Long)?.toInt()
+                val status: String = document?.data?.get("status") as String
+                val flag: Boolean = document?.data?.get("flag") as Boolean
+                addItem(createDummyItem(name, position, status, flag))
+                COUNT += 1
+            }
+        }
+
+        if (COUNT > 0) {
+            registration.remove()
+        } else {
+            registration
+        }
     }
 
     private fun addItem(item: DummyItem) {
