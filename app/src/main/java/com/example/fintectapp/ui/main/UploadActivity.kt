@@ -15,13 +15,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.example.fintectapp.R
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_upload.*
+import java.io.File
+import java.io.FileInputStream
+import kotlin.reflect.typeOf
 
 
 class UploadActivity : AppCompatActivity() {
+    lateinit var storage: FirebaseStorage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
+
+        storage = Firebase.storage
+
         if (intent.hasExtra("nameKey")) {
             textView4.text = intent.getStringExtra("nameKey")
             /* "nameKey"라는 이름의 key에 저장된 값이 있다면
@@ -75,10 +85,21 @@ class UploadActivity : AppCompatActivity() {
                         UploadSuccessActivity::class.java
                     )
                     intent.putExtra("path", selectedImagePath)
-                    Log.e("PATH",selectedImagePath)
+                    Log.e("PATH", selectedImagePath)
                     // PATH는 잘 저장되어 있음
                     // 여기서 FireBase로 전송하면 될 듯
-                    Toast.makeText(this, "비디오 업로드 성공!", Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(this, "비디오 업로드 성공!", Toast.LENGTH_SHORT).show()
+
+                    val storageRef = storage.reference
+                    var file = Uri.fromFile(File(selectedImagePath.substring(1)))
+                    val videoRef = storageRef.child("videos/${file.lastPathSegment}")
+                    var uploadTask = videoRef.putFile(file)
+
+                    uploadTask.addOnFailureListener {
+                        Log.e("UPLOAD VIDEO", "FAILED")
+                    }.addOnSuccessListener {
+                        Log.e("UPLOAD VIDEO", "SUCCESS")
+                    }
                     startActivity(intent)
 
                 }
