@@ -1,5 +1,7 @@
 package com.example.fintectapp.ui.main.contents
 
+import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -15,19 +17,33 @@ object HistoryContent {
      * An array of sample (dummy) items.
      */
     val ITEMS: MutableList<DummyItem> = ArrayList()
+    val db = FirebaseFirestore.getInstance()
 
     /**
      * A map of sample (dummy) items, by ID.
      */
     val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
 
-    private val COUNT = 2
+    private var COUNT = 0
 
     init {
         // Add some sample items.
-        addItem(createDummyItem("우리은행", 1, "승인 완료", true))
-        addItem(createDummyItem("신한은행", 2, "승인 거절", true))
-
+        db.collection("company")
+            .whereEqualTo("flag", true)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d("DATA", "${document?.data}")
+                    val name: String = document?.data?.get("name") as String
+                    val position: Int = (document?.data?.get("position") as Long)?.toInt()
+                    val status: String = document?.data?.get("status") as String
+                    val flag: Boolean = document?.data?.get("flag") as Boolean
+                    addItem(createDummyItem(name, position, status, flag))
+                    COUNT += 1
+                }
+            }.addOnFailureListener { exception ->
+                Log.e("DATA", "Error getting documents: ", exception)
+            }
     }
 
     private fun addItem(item: DummyItem) {
