@@ -1,14 +1,17 @@
 package com.example.fintectapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
+import com.example.fintectapp.ui.main.SectionsPagerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import com.example.fintectapp.ui.main.SectionsPagerAdapter
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +26,15 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            Firebase.auth.signOut()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+            Toast.makeText(this, "LOGOUT Success", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("finish", true)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP // To clean up all activities
+            startActivity(intent)
+            finish()
         }
     }
 }
