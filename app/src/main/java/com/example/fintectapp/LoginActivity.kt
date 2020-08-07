@@ -15,6 +15,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
         setContentView(R.layout.activity_login)
         google_login_button.setOnClickListener { googleLogin() }
         login_button.setOnClickListener { emailLogin() }
@@ -27,7 +29,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun emailLogin() {
-//        TODO("Not yet implemented")
         Log.e("emailLogin","HERE")
         if (email_area.text.toString().isEmpty() || password_area.text.toString().isEmpty()) {
             Toast.makeText(this, "Null email or password", Toast.LENGTH_SHORT).show()
@@ -39,9 +40,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signinEmail() {
-//        TODO("Not yet implemented")
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        auth?.signInWithEmailAndPassword(email_area.text.toString(), password_area.text.toString())
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                else{
+                    Toast.makeText(this, "Invalid ID or password", Toast.LENGTH_SHORT).show()
+                }
+            }
+
     }
 
     private fun googleLogin() {
