@@ -21,6 +21,7 @@ import java.io.File
 
 class UploadActivity : AppCompatActivity() {
     lateinit var storage: FirebaseStorage
+    lateinit var name: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
@@ -28,7 +29,8 @@ class UploadActivity : AppCompatActivity() {
         storage = Firebase.storage
 
         if (intent.hasExtra("nameKey")) {
-            textView4.text = intent.getStringExtra("nameKey")
+            name = intent.getStringExtra("nameKey")
+            textView4.text = name
             /* "nameKey"라는 이름의 key에 저장된 값이 있다면
                textView의 내용을 "nameKey" key에서 꺼내온 값으로 바꾼다 */
 
@@ -85,11 +87,8 @@ class UploadActivity : AppCompatActivity() {
                     // 여기서 FireBase로 전송하면 될 듯
                     // Toast.makeText(this, "비디오 업로드 성공!", Toast.LENGTH_SHORT).show()
                     val storageRef = storage.getReferenceFromUrl("gs://fintect-ff87d.appspot.com/")
-//                    val storageRef = storage.reference
-//                    var file = Uri.fromFile(File(selectedImagePath.substring(1)))
-//                    val mountainsRef = storageRef.child("file.jpg")
                     val file = Uri.fromFile(File(selectedImagePath))
-                    val videoRef = storageRef.child("videos/video1.mp4")
+                    val videoRef = storageRef.child("videos/${name}.mp4")
                     val uploadTask = videoRef.putFile(file)
                     Log.e("UPLOAD VIDEO", "${file}")
                     uploadTask.addOnFailureListener {
