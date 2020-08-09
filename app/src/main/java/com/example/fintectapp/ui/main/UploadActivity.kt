@@ -1,7 +1,6 @@
 package com.example.fintectapp.ui.main
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
@@ -12,16 +11,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import com.example.fintectapp.R
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_upload.*
 import java.io.File
-import java.io.FileInputStream
-import kotlin.reflect.typeOf
 
 
 class UploadActivity : AppCompatActivity() {
@@ -89,19 +84,20 @@ class UploadActivity : AppCompatActivity() {
                     // PATH는 잘 저장되어 있음
                     // 여기서 FireBase로 전송하면 될 듯
                     // Toast.makeText(this, "비디오 업로드 성공!", Toast.LENGTH_SHORT).show()
-
-                    val storageRef = storage.reference
-                    var file = Uri.fromFile(File(selectedImagePath.substring(1)))
-                    val videoRef = storageRef.child("videos/${file.lastPathSegment}")
-                    var uploadTask = videoRef.putFile(file)
-
+                    val storageRef = storage.getReferenceFromUrl("gs://fintect-ff87d.appspot.com/")
+//                    val storageRef = storage.reference
+//                    var file = Uri.fromFile(File(selectedImagePath.substring(1)))
+//                    val mountainsRef = storageRef.child("file.jpg")
+                    val file = Uri.fromFile(File(selectedImagePath))
+                    val videoRef = storageRef.child("videos/video1.mp4")
+                    val uploadTask = videoRef.putFile(file)
+                    Log.e("UPLOAD VIDEO", "${file}")
                     uploadTask.addOnFailureListener {
                         Log.e("UPLOAD VIDEO", "FAILED")
                     }.addOnSuccessListener {
                         Log.e("UPLOAD VIDEO", "SUCCESS")
                     }
                     startActivity(intent)
-
                 }
             }
         }
