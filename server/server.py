@@ -98,13 +98,18 @@ def extract_first_frame(path):
     return "./tmp/frame_thumb.png"
 
 def validate_image(image_path):
-    # TODO: Implement using Xception
 
     tester = DeepfakeTest(model=Xception(), ckpt_dir='DeepFake_Xception/log_path/Xception_trained_model.pth')
     result = tester.test_im(image_path)
-    print(result)
+    
+    if (result[0][0] > 0.9):
+        real_percentage = result[0][0]*100
+        print("result: {0:3.1f}% REAL!".format(real_percentage))
+        return True
 
-    return True
+    fake_percentage = result[0][1]*100
+    print("result: {0:3.1f}% FAKE!".format(fake_percentage))
+    return False
 
 watch = queue.on_snapshot(on_snapshot)
 

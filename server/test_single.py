@@ -34,8 +34,8 @@ class DeepfakeTest():
         return output
 
 if __name__ == '__main__':
-    tester = DeepfakeTest(model=Xception(), ckpt_dir='log_path/Xception_trained_model.pth')
-    imgs = ['sample/fake.png', 'sample/real.png']
+    tester = DeepfakeTest(model=Xception(), ckpt_dir='DeepFake_Xception/log_path/Xception_trained_model.pth')
+    imgs = ['sample/fake2.png', 'sample/real.png']
     results = [tester.test_im(img) for img in imgs]
     print(results)
 
