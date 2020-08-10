@@ -12,9 +12,11 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fintectapp.R
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_upload.*
 import java.io.File
 
@@ -90,11 +92,48 @@ class UploadActivity : AppCompatActivity() {
                     val file = Uri.fromFile(File(selectedImagePath))
                     val videoRef = storageRef.child("videos/${name}.mp4")
                     val uploadTask = videoRef.putFile(file)
-                    Log.e("UPLOAD VIDEO", "${file}")
+
+                    Log.d("UPLOADING VIDEO...", "${file}")
                     uploadTask.addOnFailureListener {
                         Log.e("UPLOAD VIDEO", "FAILED")
                     }.addOnSuccessListener {
-                        Log.e("UPLOAD VIDEO", "SUCCESS")
+                        Log.d("UPLOAD VIDEO", "SUCCESS")
+                        val db = FirebaseFirestore.getInstance()
+                        var documentId: String = ""
+                        db.collection("company").whereEqualTo("name", name)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                for (document in documents) {
+                                    documentId = document.id
+                                    break
+                                }
+                            }.addOnFailureListener { e ->
+                                Log.w("GET DOC", "Error getting document", e)
+                            }
+
+                        db.collection("company").document(documentId)
+                            .update(mapOf(
+                                "flag" to true,
+                                "status" to "평가중..."
+                            ))
+                            .addOnSuccessListener { docRef ->
+                                Log.d("UPDATE DOC", "Finish updating document: ${documentId}")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w("UPDATE DOC", "Error updating document", e)
+                            }
+
+                        db.collection("verify-queue")
+                            .add(mapOf(
+                                "video_url" to "videos/${name}.mp4",
+                                "created" to FieldValue.serverTimestamp()
+                            ))
+                            .addOnSuccessListener { docRef ->
+                                Log.d("ADD DOC", "Add new document: ${docRef.id}")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w("ADD DOC", "Error adding document", e)
+                            }
                     }
                     startActivity(intent)
                 }
