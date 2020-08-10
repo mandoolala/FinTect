@@ -38,14 +38,16 @@ def has_processed(doc_snapshot):
 
 # Validate and update document
 def validate_doc(doc_snapshot):
-    print("validating", doc_snapshot.id)
+    print("validating Document ID:", doc_snapshot.id)
     document_data = doc_snapshot.to_dict()
 
     try:
+        process_image = validate(document_data["video_url"])
+        round_percentage = "%.1f" % round(process_image[1], 2)
         queue.document(doc_snapshot.id).update(
-            {"is_processed": True, "is_valid": validate(document_data["video_url"])}
+            {"is_processed": True, "is_valid": process_image[0], "percentage": round_percentage}
         )
-        print('Validation succeed', doc_snapshot.id)
+        print('Validation succeed Document ID:', doc_snapshot.id)
     except:
         exc_type, value, _ = sys.exc_info()
         queue.document(doc_snapshot.id).update(
@@ -105,11 +107,11 @@ def validate_image(image_path):
     if (result[0][0] > 0.9):
         real_percentage = result[0][0]*100
         print("result: {0:3.1f}% REAL!".format(real_percentage))
-        return True
+        return [True, real_percentage]
 
     fake_percentage = result[0][1]*100
     print("result: {0:3.1f}% FAKE!".format(fake_percentage))
-    return False
+    return [False, fake_percentage]
 
 watch = queue.on_snapshot(on_snapshot)
 
