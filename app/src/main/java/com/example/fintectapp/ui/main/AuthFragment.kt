@@ -3,15 +3,17 @@ package com.example.fintectapp.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fintectapp.R
 import com.example.fintectapp.ui.main.contents.AuthContent
+import kotlinx.android.synthetic.main.fragment_auth_list.*
 
 /**
  * A fragment representing a list of Items.
@@ -26,6 +28,7 @@ class AuthFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
+
     }
 
     override fun onCreateView(
@@ -33,16 +36,18 @@ class AuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_auth_list, container, false)
+        Log.e("OnCreateView AUTH","RecyclerView making")
+        val mRecyclerView = view.findViewById<RecyclerView>(R.id.list)
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
+        if (mRecyclerView is RecyclerView) {
+            with(mRecyclerView) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
                 val hello = AuthContent
-                Log.e("LOAD ITEMS", "${hello.ITEMS}")
+                Log.e("LOAD ITEMS In AUTH", "${hello.ITEMS}")
                 adapter = MyItemRecyclerViewAdapter(AuthContent.ITEMS)
                 //클릭리스너 등록
                 (adapter as MyItemRecyclerViewAdapter).setItemClickListener( object : MyItemRecyclerViewAdapter.ItemClickListener{
@@ -59,6 +64,23 @@ class AuthFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+//        var ft = parentFragmentManager.beginTransaction();
+        Log.e("ONACTIVITY AUTH", "RESULT")
+
+//        ft.detach(this).attach(this).commit()
+        swipe.setOnRefreshListener {
+            Log.e("LOG_TAG", "onRefresh called from SwipeRefreshLayout")
+            refresh()
+        }
+    }
+
+    private fun refresh() {
+        val ft = parentFragmentManager.beginTransaction();
+        ft.detach(this).attach(this).commit()
     }
 
     companion object {

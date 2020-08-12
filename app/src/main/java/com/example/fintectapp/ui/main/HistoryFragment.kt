@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.fintectapp.R
 import com.example.fintectapp.ui.main.contents.HistoryContent
+import kotlinx.android.synthetic.main.fragment_auth_list.*
+import kotlinx.android.synthetic.main.fragment_history_list.*
 
 /**
  * A fragment representing a list of Items.
@@ -33,17 +35,18 @@ class HistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_history_list, container, false)
-
+        Log.e("OnCreateView HIST","RecyclerView making")
+        val mRecyclerView = view.findViewById<RecyclerView>(R.id.list2)
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
+        if (mRecyclerView is RecyclerView) {
+            with(mRecyclerView) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
                 val hello = HistoryContent
-                Thread.sleep(100)
-                Log.e("LOAD ITEMS", "${hello.ITEMS}")
+//                Thread.sleep(100)
+                Log.e("LOAD ITEMS IN HISTORY", "${hello.ITEMS}")
                 adapter = MyItemRecyclerViewAdapter2(HistoryContent.ITEMS)
                 //클릭리스너 등록
                 (adapter as MyItemRecyclerViewAdapter2).setItemClickListener( object : MyItemRecyclerViewAdapter2.ItemClickListener{
@@ -54,10 +57,26 @@ class HistoryFragment : Fragment() {
                     }
                 })
             }
+        } else {
+            Log.e("NOOO", "NOO")
         }
         return view
     }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+//        var ft = parentFragmentManager.beginTransaction();
+        Log.e("ONACTIVITY HISTORY", "RESULT")
 
+//        ft.detach(this).attach(this).commit()
+        swipe2.setOnRefreshListener {
+            Log.e("LOG_TAG", "onRefresh called from SwipeRefreshLayout")
+            refresh()
+        }
+    }
+    private fun refresh() {
+        val ft = parentFragmentManager.beginTransaction();
+        ft.detach(this).attach(this).commit()
+    }
     companion object {
 
         // TODO: Customize parameter argument names
