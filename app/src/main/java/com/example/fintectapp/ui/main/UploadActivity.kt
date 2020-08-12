@@ -100,21 +100,22 @@ class UploadActivity : AppCompatActivity() {
                             .get()
                             .addOnSuccessListener { documents ->
                                 for (document in documents) {
-                                    Log.e("DOC ID", "${document.id}")
                                     documentId = document.id
                                     break
                                 }
+
+                                val intent = Intent(
+                                    this,
+                                    UploadSuccessActivity::class.java
+                                )
+                                Log.e("DOC ID", "${documentId}")
+                                intent.putExtra("path", "videos/${name}.mp4")
+                                intent.putExtra("documentId", documentId)
+                                startActivity(intent)
                             }.addOnFailureListener { e ->
                                 Log.w("GET DOC", "Error getting document", e)
                             }
                     }
-                    val intent = Intent(
-                        this,
-                        UploadSuccessActivity::class.java
-                    )
-                    intent.putExtra("path", "videos/${name}.mp4")
-                    intent.putExtra("documentId", documentId)
-                    startActivity(intent)
                 }
             }
         }
