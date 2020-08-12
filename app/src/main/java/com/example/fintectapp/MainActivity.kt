@@ -1,5 +1,7 @@
 package com.example.fintectapp
 
+import android.content.res.ColorStateList
+import android.graphics.Color.rgb
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -21,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         val fab: FloatingActionButton = findViewById(R.id.fab)
-
+        fab.setImageResource(R.drawable.ic_action_name)
+        fab.backgroundTintList = ColorStateList.valueOf((rgb(240,128,128)))
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
