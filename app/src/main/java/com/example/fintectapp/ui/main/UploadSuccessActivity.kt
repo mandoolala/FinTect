@@ -58,7 +58,8 @@ class UploadSuccessActivity : AppCompatActivity() {
             .add(
                 mapOf(
                     "video_url" to path,
-                    "created" to FieldValue.serverTimestamp()
+                    "created" to FieldValue.serverTimestamp(),
+                    "company_id" to documentId
                 )
             )
             .addOnSuccessListener { docRef ->
