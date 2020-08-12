@@ -41,6 +41,8 @@ class AuthFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
+                val hello = AuthContent
+                Log.e("LOAD ITEMS", "${hello.ITEMS}")
                 adapter = MyItemRecyclerViewAdapter(AuthContent.ITEMS)
                 //클릭리스너 등록
                 (adapter as MyItemRecyclerViewAdapter).setItemClickListener( object : MyItemRecyclerViewAdapter.ItemClickListener{

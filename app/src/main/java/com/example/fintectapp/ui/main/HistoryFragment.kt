@@ -41,6 +41,9 @@ class HistoryFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
+                val hello = HistoryContent
+                Thread.sleep(100)
+                Log.e("LOAD ITEMS", "${hello.ITEMS}")
                 adapter = MyItemRecyclerViewAdapter2(HistoryContent.ITEMS)
                 //클릭리스너 등록
                 (adapter as MyItemRecyclerViewAdapter2).setItemClickListener( object : MyItemRecyclerViewAdapter2.ItemClickListener{

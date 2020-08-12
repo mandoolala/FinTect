@@ -1,5 +1,7 @@
 package com.example.fintectapp.ui.main.contents
 
+import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -15,20 +17,39 @@ object AuthContent {
      * An array of sample (dummy) items.
      */
     val ITEMS: MutableList<DummyItem> = ArrayList()
-
+    val db = FirebaseFirestore.getInstance()
     /**
      * A map of sample (dummy) items, by ID.
      */
     val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
 
-    private val COUNT = 4
+    private var COUNT = 0
 
     init {
-        // Add some sample items.
-        addItem(createDummyItem("NH농협은행", 1, "20.03.05", false))
-        addItem(createDummyItem("KB국민은행",2, "20.05.06",false))
-        addItem(createDummyItem("IBK투자증권", 3, "20.07.19",false))
-        addItem(createDummyItem("신한카드", 4, "20.06.05",false))
+        // Add items(collection : "company") from firestore where flag is true
+        val query = db.collection("company").whereEqualTo("flag", false)
+        val registration = query.addSnapshotListener { documents, e ->
+                if (e != null) {
+                    Log.w("DB", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                for (document in documents!!) {
+                    Log.d("DATA", "${document?.data}")
+                    val name: String = document?.data?.get("name") as String
+                    val position: Int = (document?.data?.get("position") as Long)?.toInt()
+                    val date: String = document?.data?.get("date") as String
+                    val flag: Boolean = document?.data?.get("flag") as Boolean
+                    addItem(createDummyItem(name, position, date, flag))
+                    COUNT += 1
+                }
+            }
+
+        if (COUNT > 0) {
+            registration.remove()
+        } else {
+            registration
+        }
     }
 
     private fun addItem(item: DummyItem) {

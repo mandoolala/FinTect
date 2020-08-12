@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import com.example.fintectapp.MainActivity
 import com.example.fintectapp.R
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,6 +20,9 @@ class UploadSuccessActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_success)
 
+        button_to_home.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         documentId = intent.getStringExtra("documentId")
         path = intent.getStringExtra("path")
         db = FirebaseFirestore.getInstance()
