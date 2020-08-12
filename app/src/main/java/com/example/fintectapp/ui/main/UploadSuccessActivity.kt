@@ -11,6 +11,7 @@ import com.example.fintectapp.R
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_upload_success.*
 
 class UploadSuccessActivity : AppCompatActivity() {
     lateinit var documentId: String
@@ -23,6 +24,7 @@ class UploadSuccessActivity : AppCompatActivity() {
         button_to_home.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+        }
         documentId = intent.getStringExtra("documentId")
         path = intent.getStringExtra("path")
         db = FirebaseFirestore.getInstance()
