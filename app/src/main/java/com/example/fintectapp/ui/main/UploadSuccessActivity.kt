@@ -57,9 +57,10 @@ class UploadSuccessActivity : AppCompatActivity() {
         db.collection("verify-queue")
             .add(
                 mapOf(
+                    "is_processed" to false,
                     "video_url" to path,
                     "created" to FieldValue.serverTimestamp(),
-                    "company_id" to documentId
+                    "company_id" to documentId as String
                 )
             )
             .addOnSuccessListener { docRef ->
