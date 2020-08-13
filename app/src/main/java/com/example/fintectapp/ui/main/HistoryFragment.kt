@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.fintectapp.R
 import com.example.fintectapp.ui.main.contents.HistoryContent
-import kotlinx.android.synthetic.main.fragment_auth_list.*
 import kotlinx.android.synthetic.main.fragment_history_list.*
 
 /**
@@ -52,8 +51,24 @@ class HistoryFragment : Fragment() {
                 (adapter as MyItemRecyclerViewAdapter2).setItemClickListener( object : MyItemRecyclerViewAdapter2.ItemClickListener{
                     override fun onClick(view: View, position: Int) {
                         Log.d("SSS", "${position}번 리스트 선택")
-                        val intent = Intent(requireContext(), ResultDetailActivity::class.java)
-                        startActivity(intent)
+                        val selected = HistoryContent.ITEMS[position]
+                        val status: String = selected.status
+
+                        if (status == "평가중...") {
+                            val intent = Intent(requireContext(), WaitingResultActivity::class.java)
+                            startActivity(intent)
+                        } else if (status == "승인 완료") {
+                            val intent = Intent(requireContext(), ApproveResultActivity::class.java)
+                            startActivity(intent)
+                        } else if (status == "승인 거절") {
+                            val intent = Intent(requireContext(), DenyResultActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            // error page
+                            val intent = Intent(requireContext(), ErrorResultActivity::class.java)
+                            startActivity(intent)
+                        }
+
                     }
                 })
             }
