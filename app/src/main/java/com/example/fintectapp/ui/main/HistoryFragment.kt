@@ -53,19 +53,24 @@ class HistoryFragment : Fragment() {
                         Log.d("SSS", "${position}번 리스트 선택")
                         val selected = HistoryContent.ITEMS[position]
                         val status: String = selected.status
+                        val name: String = selected.content
 
                         if (status == "평가중...") {
-                            val intent = Intent(requireContext(), WaitingResultActivity::class.java)
-                            startActivity(intent)
+                            // do nothing
                         } else if (status == "승인 완료") {
                             val intent = Intent(requireContext(), ApproveResultActivity::class.java)
+                            intent.putExtra("name", name)
+                            intent.putExtra("status", status)
                             startActivity(intent)
                         } else if (status == "승인 거절") {
                             val intent = Intent(requireContext(), DenyResultActivity::class.java)
+                            intent.putExtra("name", name)
+                            intent.putExtra("status", status)
                             startActivity(intent)
                         } else {
                             // error page
                             val intent = Intent(requireContext(), ErrorResultActivity::class.java)
+                            intent.putExtra("name", name)
                             startActivity(intent)
                         }
 

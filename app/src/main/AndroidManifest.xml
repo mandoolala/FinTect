@@ -16,7 +16,6 @@
         <activity android:name=".ui.main.DenyResultActivity"></activity>
         <activity android:name=".ui.main.ApproveResultActivity" />
         <activity android:name=".ui.main.ErrorResultActivity" />
-        <activity android:name=".ui.main.WaitingResultActivity" />
         <activity android:name=".ui.main.ResultDetailActivity" />
         <activity android:name=".ui.main.UploadSuccessActivity" />
         <activity android:name=".RegisterAgreementActivity" />
