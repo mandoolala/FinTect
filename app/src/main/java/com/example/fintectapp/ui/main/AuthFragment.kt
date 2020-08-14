@@ -53,7 +53,7 @@ class AuthFragment : Fragment() {
                 (adapter as MyItemRecyclerViewAdapter).setItemClickListener( object : MyItemRecyclerViewAdapter.ItemClickListener{
                     override fun onClick(view: View, position: Int) {
                         Log.d("SSS", "${position}번 리스트 선택")
-                        val intent = Intent(requireContext(), UploadActivity::class.java)
+                        val intent = Intent(requireContext(), UploadAgreementActivity::class.java)
                         val selected = AuthContent.ITEMS[position]
                         intent.putExtra("nameKey", selected.content)
                         startActivity(intent)

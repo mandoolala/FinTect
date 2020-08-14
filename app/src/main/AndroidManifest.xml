@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/icon_fintect_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.DenyResultActivity"></activity>
+        <activity android:name=".ui.main.UploadAgreementActivity"></activity>
+        <activity android:name=".ui.main.DenyResultActivity" />
         <activity android:name=".ui.main.ApproveResultActivity" />
         <activity android:name=".ui.main.ErrorResultActivity" />
         <activity android:name=".ui.main.ResultDetailActivity" />
