@@ -31,14 +31,8 @@ class UploadSuccessActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
     }
 
-    override fun onPause() {
-        super.onPause()
-
-        button_to_main.setOnClickListener {
-            val intent = Intent(this, ResultDetailActivity::class.java)
-            intent.putExtra("documentId", documentId)
-            startActivity(intent)
-        }
+    override fun onStart() {
+        super.onStart()
 
         db.collection("company").document(documentId)
             .set(

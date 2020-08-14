@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fintectapp">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_fintect"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_fintect_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.ResultDetailActivity"></activity>
+        <activity android:name=".ui.main.DenyResultActivity"></activity>
+        <activity android:name=".ui.main.ApproveResultActivity" />
+        <activity android:name=".ui.main.ErrorResultActivity" />
+        <activity android:name=".ui.main.ResultDetailActivity" />
         <activity android:name=".ui.main.UploadSuccessActivity" />
         <activity android:name=".RegisterAgreementActivity" />
         <activity android:name=".RegisterActivity" />
@@ -24,7 +29,7 @@
         </activity>
         <activity
             android:name=".ui.main.UploadActivity"
-            android:requestLegacyExternalStorage="true"/>
+            android:requestLegacyExternalStorage="true" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
