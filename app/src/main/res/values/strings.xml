@@ -27,4 +27,5 @@
     <string name="buttonToHome">홈으로</string>
     <string name="buttonToMain">동의 내역 확인</string>
     <string name="ResultMsg">귀하의 영상은 비대면 화상 약관 동의에\n아래와 같은 이유로 승인이 거절되었습니다.</string>
+    <string name="ApproveResultMsg">귀하의 영상 인증이\n정상적으로 처리되었습니다.</string>
 </resources>

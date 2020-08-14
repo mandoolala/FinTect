@@ -23,7 +23,7 @@ class DenyResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_deny_result)
 
-        Log.e("RESULT ACTIVITY", "DENY ACTIVITY")
+        Log.d("RESULT ACTIVITY", "DENY ACTIVITY")
 
         db = FirebaseFirestore.getInstance()
         storage = Firebase.storage
@@ -33,9 +33,6 @@ class DenyResultActivity : AppCompatActivity() {
         companyName.text = name
         status.text = statusVal
 
-//        val controller = MediaController(this)
-//        controller.setMediaPlayer(videoView)
-//        videoView.setMediaController(controller)
 
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

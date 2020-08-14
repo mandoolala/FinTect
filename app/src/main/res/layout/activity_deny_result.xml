@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:textColor="#F44336"
+        android:textColor="#C94D2A"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/companyName"
         app:layout_constraintTop_toBottomOf="@+id/companyName" />
