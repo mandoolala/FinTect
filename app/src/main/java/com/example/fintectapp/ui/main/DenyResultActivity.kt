@@ -48,7 +48,7 @@ class DenyResultActivity : AppCompatActivity() {
         super.onStart()
 
         db.collection("verify-queue")
-            .whereEqualTo("path", "videos/${name}.mp4")
+            .whereEqualTo("video_url", "videos/${name}.mp4")
             .get()
             .addOnSuccessListener { documents ->
                 Log.w("GET DOC", "SUCCESS")

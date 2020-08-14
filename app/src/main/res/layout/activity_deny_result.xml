@@ -10,7 +10,8 @@
         android:id="@+id/resultText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/ResultMsg"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/resultDetailText"
@@ -23,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="191dp"
         android:textColor="@color/design_default_color_primary"
         android:textSize="20sp"
@@ -33,13 +35,13 @@
 
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/resultText"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status"
+        app:layout_constraintTop_toBottomOf="parent"
         tools:srcCompat="@tools:sample/avatars[0]" />
 
     <TextView
@@ -58,11 +60,10 @@
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:textColor="#F44336"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/videoView"
         app:layout_constraintStart_toStartOf="@+id/companyName"
         app:layout_constraintTop_toBottomOf="@+id/companyName" />
 
