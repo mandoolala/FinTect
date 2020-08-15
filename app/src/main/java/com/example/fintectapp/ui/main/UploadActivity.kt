@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -12,12 +13,10 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fintectapp.R
-import com.google.firebase.firestore.DocumentId
-import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_upload.*
 import java.io.File
 
@@ -67,7 +66,32 @@ class UploadActivity : AppCompatActivity() {
             cursor.getString(column_index)
         } else null
     }
-
+    private fun getRealPathFromURI(contentUri: Uri): String? {
+        if (contentUri.path!!.startsWith("/storage")) {
+            return contentUri.path
+        }
+        val id =
+            DocumentsContract.getDocumentId(contentUri).split(":".toRegex()).toTypedArray()[1]
+        val columns =
+            arrayOf(MediaStore.Files.FileColumns.DATA)
+        val selection = MediaStore.Files.FileColumns._ID + " = " + id
+        val cursor = contentResolver.query(
+            MediaStore.Files.getContentUri("external"),
+            columns,
+            selection,
+            null,
+            null
+        )
+        try {
+            val columnIndex = cursor!!.getColumnIndex(columns[0])
+            if (cursor.moveToFirst()) {
+                return cursor.getString(columnIndex)
+            }
+        } finally {
+            cursor!!.close()
+        }
+        return null
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -78,7 +102,7 @@ class UploadActivity : AppCompatActivity() {
                 val filemanagerstring = selectedImageUri!!.path
 
                 // MEDIA GALLERY
-                val selectedImagePath = getPath(selectedImageUri)
+                val selectedImagePath = getRealPathFromURI(selectedImageUri)
                 var documentId: String = ""
                 if (selectedImagePath != null) {
                     Log.e("PATH", selectedImagePath)
