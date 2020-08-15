@@ -19,8 +19,7 @@ import kotlinx.android.synthetic.main.fragment_auth_list.*
  * A fragment representing a list of Items.
  */
 class AuthFragment : Fragment() {
-//    val contact = callHOME()
-    var contactList: MutableList<AuthContent.DummyItem> = ArrayList()
+
     private var columnCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +38,6 @@ class AuthFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_auth_list, container, false)
         Log.e("OnCreateView AUTH","RecyclerView making")
         val mRecyclerView = view.findViewById<RecyclerView>(R.id.list)
-        mRecyclerView?.setHasFixedSize(true)
-        callHOME()
 
         // Set the adapter
         if (mRecyclerView is RecyclerView) {
@@ -49,7 +46,8 @@ class AuthFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                Log.e("LOAD ITEMS In AUTH", "${contactList}")
+                val hello = AuthContent
+                Log.e("LOAD ITEMS In AUTH", "${hello.ITEMS}")
                 adapter = MyItemRecyclerViewAdapter(AuthContent.ITEMS)
                 //클릭리스너 등록
                 (adapter as MyItemRecyclerViewAdapter).setItemClickListener( object : MyItemRecyclerViewAdapter.ItemClickListener{
@@ -62,10 +60,9 @@ class AuthFragment : Fragment() {
 
                     }
                 })
-                (adapter as MyItemRecyclerViewAdapter).notifyDataSetChanged()
-
             }
         }
+
         return view
     }
 
@@ -79,14 +76,8 @@ class AuthFragment : Fragment() {
             Log.e("LOG_TAG", "onRefresh called from SwipeRefreshLayout")
             refresh()
         }
-//        refresh()
+    }
 
-    }
-    private fun callHOME(){
-        val db = AuthContent
-        contactList = db.ITEMS
-        Log.e("LOAD ITEMS In callHOME", "${contactList}")
-    }
     private fun refresh() {
         val ft = parentFragmentManager.beginTransaction();
         ft.detach(this).attach(this).commit()

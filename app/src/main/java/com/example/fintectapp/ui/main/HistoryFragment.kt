@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.fintectapp.R
-import com.example.fintectapp.ui.main.contents.AuthContent
 import com.example.fintectapp.ui.main.contents.HistoryContent
 import kotlinx.android.synthetic.main.fragment_history_list.*
 
@@ -19,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_history_list.*
  * A fragment representing a list of Items.
  */
 class HistoryFragment : Fragment() {
-    var contactList: MutableList<HistoryContent.DummyItem> = ArrayList()
 
     private var columnCount = 1
 
@@ -38,8 +36,6 @@ class HistoryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_history_list, container, false)
         Log.e("OnCreateView HIST","RecyclerView making")
         val mRecyclerView = view.findViewById<RecyclerView>(R.id.list2)
-        mRecyclerView?.setHasFixedSize(true)
-        callHIST()
         // Set the adapter
         if (mRecyclerView is RecyclerView) {
             with(mRecyclerView) {
@@ -49,7 +45,7 @@ class HistoryFragment : Fragment() {
                 }
                 val hello = HistoryContent
 //                Thread.sleep(100)
-                Log.e("LOAD ITEMS IN HISTORY", "${contactList}")
+                Log.e("LOAD ITEMS IN HISTORY", "${hello.ITEMS}")
                 adapter = MyItemRecyclerViewAdapter2(HistoryContent.ITEMS)
                 //클릭리스너 등록
                 (adapter as MyItemRecyclerViewAdapter2).setItemClickListener( object : MyItemRecyclerViewAdapter2.ItemClickListener{
@@ -80,8 +76,6 @@ class HistoryFragment : Fragment() {
 
                     }
                 })
-                (adapter as MyItemRecyclerViewAdapter2).notifyDataSetChanged()
-
             }
         } else {
             Log.e("NOOO", "NOO")
@@ -102,11 +96,6 @@ class HistoryFragment : Fragment() {
     private fun refresh() {
         val ft = parentFragmentManager.beginTransaction();
         ft.detach(this).attach(this).commit()
-    }
-    private fun callHIST(){
-        val db = HistoryContent
-        contactList = db.ITEMS
-        Log.e("LOAD ITEMS In HIST", "${contactList}")
     }
     companion object {
 
