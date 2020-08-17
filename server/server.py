@@ -115,9 +115,14 @@ def validate_image(image_path):
 
 watch = queue.on_snapshot(on_snapshot)
 
-@app.route("/test-add")
-def test_add():
+@app.route("/test-add-real")
+def test_add_real():
     # Adding a document to verify-queue will execute a task
     queue.add({"video_url": "videos/real_mandoo.mp4"})
     return "OK"
 
+@app.route("/test-add-fake")
+def test_add_fake():
+    # Adding a document to verify-queue will execute a task
+    queue.add({"video_url": "videos/fake_obama.mp4"})
+    return "OK"
