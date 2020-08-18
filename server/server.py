@@ -104,12 +104,12 @@ def validate_image(image_path):
     tester = DeepfakeTest(model=Xception(), ckpt_dir='DeepFake_Xception/log_path/Xception_trained_model.pth')
     result = tester.test_im(image_path)
     
-    if (result[0][0] > 0.9):
-        real_percentage = result[0][0]*100
+    if (result[0][0] < 0.5):
+        real_percentage = 100-result[0][0]*100
         print("result: {0:3.1f}% REAL!".format(real_percentage))
         return [True, real_percentage]
 
-    fake_percentage = result[0][1]*100
+    fake_percentage = 100-result[0][1]*100
     print("result: {0:3.1f}% FAKE!".format(fake_percentage))
     return [False, fake_percentage]
 
