@@ -1,0 +1,7 @@
+.vscode
+__pycache__
+**/*.mp4
+**/*.png
+serviceAccount.json
+Xception_trained_model.pth
+.DS_Store
