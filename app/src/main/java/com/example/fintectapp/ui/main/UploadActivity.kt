@@ -16,6 +16,7 @@ import com.example.fintectapp.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_upload.*
 import java.io.File
@@ -113,7 +114,8 @@ class UploadActivity : AppCompatActivity() {
                     val file = Uri.fromFile(File(selectedImagePath))
                     val videoRef = storageRef.child("videos/${name}.mp4")
                     val uploadTask = videoRef.putFile(file)
-
+//                    val stream: InputStream = FileInputStream(fileLog)
+//                    val uploadTask: UploadTask = logsRef.putStream(stream)
                     Log.d("UPLOADING VIDEO...", "${file}")
                     uploadTask.addOnFailureListener {
                         Log.e("UPLOAD VIDEO", "FAILED")

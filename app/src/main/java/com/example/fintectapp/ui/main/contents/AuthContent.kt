@@ -27,31 +27,32 @@ object AuthContent {
 
     init {
         // Add items(collection : "company") from firestore where flag is true
+
+//        if (COUNT > 0) {
+//            registration.remove()
+//        } else {
+//            registration
+//        }
+    }
+    fun refreshAuthDB(){
+        ITEMS.clear()
         val query = db.collection("company").whereEqualTo("flag", false)
-        val registration = query.addSnapshotListener { documents, e ->
-                if (e != null) {
-                    Log.w("DB", "Listen failed.", e)
-                    return@addSnapshotListener
-                }
+//        val registration = query.get().addOnSuccessListener { documents, }
+        query.get().addOnSuccessListener { documents ->
 
-                for (document in documents!!) {
-                    Log.d("DATA", "${document?.data}")
-                    val name: String = document?.data?.get("name") as String
-                    val position: Int = (document?.data?.get("position") as Long)?.toInt()
-                    val date: String = document?.data?.get("date") as String
-                    val flag: Boolean = document?.data?.get("flag") as Boolean
-                    addItem(createDummyItem(name, position, date, flag))
-                    COUNT += 1
-                }
+            for (document in documents!!) {
+                Log.e("AUTH", "${document?.data}")
+                val name: String = document?.data?.get("name") as String
+                val position: Int = (document?.data?.get("position") as Long)?.toInt()
+                val date: String = document?.data?.get("date") as String
+                val flag: Boolean = document?.data?.get("flag") as Boolean
+                addItem(createDummyItem(name, position, date, flag))
+                COUNT += 1
             }
-
-        if (COUNT > 0) {
-            registration.remove()
-        } else {
-            registration
+        }.addOnFailureListener { e ->
+            Log.d("Q2", "get failed with ", e)
         }
     }
-
     private fun addItem(item: DummyItem) {
         ITEMS.add(item)
         ITEM_MAP.put(item.id, item)

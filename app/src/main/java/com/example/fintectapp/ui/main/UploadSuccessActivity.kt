@@ -23,7 +23,9 @@ class UploadSuccessActivity : AppCompatActivity() {
 
         button_to_home.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
 
         documentId = intent.getStringExtra("documentId")
@@ -53,7 +55,7 @@ class UploadSuccessActivity : AppCompatActivity() {
                 mapOf(
                     "is_processed" to false,
                     "video_url" to path,
-                    "created" to FieldValue.serverTimestamp(),
+//                    "created" to FieldValue.serverTimestamp(),
                     "company_id" to documentId as String
                 )
             )

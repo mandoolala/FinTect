@@ -29,71 +29,52 @@ object HistoryContent {
 
     init {
         // query1 is for "평가중..." company
-        val query1 = db.collection("verify-queue").whereEqualTo("is_processed", false)
-        val registration1 = query1.addSnapshotListener { documents, e ->
-            if (e != null) {
-                Log.w("DB1", "Listen failed.", e)
-                return@addSnapshotListener
-            }
 
+    }
+    fun refreshHistDB(){
+        ITEMS.clear()
+        val query = db.collection("verify-queue")
+        query.get().addOnSuccessListener { documents ->
             for (document in documents!!) {
-                val companyId: String = document.data.getValue("company_id") as String
-                val companyDocRef = db.collection("company").document(companyId)
-                companyDocRef.get()
-                    .addOnSuccessListener { companyDoc ->
-                        Log.w("DB1 DATA", "${companyDoc.data}")
-                        val name: String = companyDoc?.data?.get("name") as String
-                        val position: Int = (companyDoc?.data?.get("position") as Long)?.toInt()
-                        val status = "평가중..."
-                        val flag: Boolean = companyDoc?.data?.get("flag") as Boolean
-                        addItem(createDummyItem(name, position, status, flag))
-                    }
-                    .addOnFailureListener { e ->
-                        Log.d("COMPANY DOC", "get failed with ", e)
-                    }
-                COUNT1 += 1
-            }
-        }
+                val companyType = document.data.getValue("is_processed")
+                if(companyType == true){
+                    val is_valid = document.data.getValue("is_valid")
+                    val companyId = document.data.getValue("company_id")
+                    val companyDocRef = db.collection("company").document(companyId as String)
+                    companyDocRef.get()
+                        .addOnSuccessListener { companyDoc ->
+                            Log.e("DB2 DATA", "${companyDoc.data}")
+                            val name: String = companyDoc?.data?.get("name") as String
+                            val position: Int = (companyDoc?.data?.get("position") as Long)?.toInt()
+                            val status = if (is_valid as Boolean) "승인 완료" else "승인 거절"
+                            val flag: Boolean = companyDoc?.data?.get("flag") as Boolean
+                            addItem(createDummyItem(name, position, status, flag))
+                        }.addOnFailureListener { e ->
+                            Log.d("COMPANY DOC", "get failed with ", e)
+                        }
+                    COUNT2 += 1
+                }else if(companyType == false){
+                    val companyId = document.data.getValue("company_id")
+                    val companyDocRef = db.collection("company").document(companyId as String)
+                    companyDocRef.get()
+                        .addOnSuccessListener { companyDoc ->
+                            Log.e("DB1 DATA", "${companyDoc.data}")
+                            val name: String = companyDoc?.data?.get("name") as String
+                            val position: Int = (companyDoc?.data?.get("position") as Long)?.toInt()
+                            val status = "평가중..."
+                            val flag: Boolean = companyDoc?.data?.get("flag") as Boolean
+                            addItem(createDummyItem(name, position, status, flag))
+                        }.addOnFailureListener { e ->
+                            Log.d("COMPANY DOC", "get failed with ", e)
+                        }
+                    COUNT1 += 1
+                }
 
-        // query2 is for "승인 완료" or "승인 거절" company
-        val query2 = db.collection("verify-queue").whereEqualTo("is_processed", true)
-        val registration2 = query2.addSnapshotListener { documents, e ->
-            if (e != null) {
-                Log.w("DB1", "Listen failed.", e)
-                return@addSnapshotListener
             }
-
-            for (document in documents!!) {
-                val companyId: String = document.data.getValue("company_id") as String
-                val is_valid: Boolean = document.data.getValue("is_valid") as Boolean
-                val companyDocRef = db.collection("company").document(companyId)
-                companyDocRef.get()
-                    .addOnSuccessListener { companyDoc ->
-                        Log.w("DB2 DATA", "${companyDoc.data}")
-                        val name: String = companyDoc?.data?.get("name") as String
-                        val position: Int = (companyDoc?.data?.get("position") as Long)?.toInt()
-                        val status = if (is_valid) "승인 완료" else "승인 거절"
-                        val flag: Boolean = companyDoc?.data?.get("flag") as Boolean
-                        addItem(createDummyItem(name, position, status, flag))
-                    }
-                    .addOnFailureListener { e ->
-                        Log.d("COMPANY DOC", "get failed with ", e)
-                    }
-                COUNT2 += 1
-            }
-        }
-        if (COUNT1 > 0) {
-            registration1.remove()
-        } else {
-            registration1
-        }
-        if (COUNT2 > 0) {
-            registration2.remove()
-        } else {
-            registration2
+        }.addOnFailureListener { e ->
+            Log.d("Q2", "get failed with ", e)
         }
     }
-
     private fun addItem(item: DummyItem) {
         ITEMS.add(item)
         ITEM_MAP.put(item.id, item)

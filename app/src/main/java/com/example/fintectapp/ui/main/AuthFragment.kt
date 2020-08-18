@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fintectapp.R
 import com.example.fintectapp.ui.main.contents.AuthContent
+import com.example.fintectapp.ui.main.contents.HistoryContent
 import kotlinx.android.synthetic.main.fragment_auth_list.*
 
 /**
@@ -60,6 +61,8 @@ class AuthFragment : Fragment() {
 
                     }
                 })
+                (adapter as MyItemRecyclerViewAdapter).notifyDataSetChanged()
+
             }
         }
 
@@ -79,6 +82,9 @@ class AuthFragment : Fragment() {
     }
 
     private fun refresh() {
+        HistoryContent.refreshHistDB()
+        AuthContent.refreshAuthDB()
+        Thread.sleep(1000)
         val ft = parentFragmentManager.beginTransaction();
         ft.detach(this).attach(this).commit()
     }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.fintectapp.R
 import com.example.fintectapp.ui.main.contents.HistoryContent
 import kotlinx.android.synthetic.main.fragment_history_list.*
@@ -56,6 +57,7 @@ class HistoryFragment : Fragment() {
                         val name: String = selected.content
 
                         if (status == "평가중...") {
+                            Toast.makeText(context, "아직 평가중입니다.", Toast.LENGTH_SHORT).show()
                             // do nothing
                         } else if (status == "승인 완료") {
                             val intent = Intent(requireContext(), ApproveResultActivity::class.java)
@@ -76,6 +78,8 @@ class HistoryFragment : Fragment() {
 
                     }
                 })
+                (adapter as MyItemRecyclerViewAdapter2).notifyDataSetChanged()
+
             }
         } else {
             Log.e("NOOO", "NOO")
@@ -94,6 +98,7 @@ class HistoryFragment : Fragment() {
         }
     }
     private fun refresh() {
+//        Thread.sleep(1000)
         val ft = parentFragmentManager.beginTransaction();
         ft.detach(this).attach(this).commit()
     }

@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.fintectapp.ui.main.SectionsPagerAdapter
+import com.example.fintectapp.ui.main.contents.AuthContent
+import com.example.fintectapp.ui.main.contents.HistoryContent
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -20,11 +22,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        HistoryContent.refreshHistDB()
+
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
+        AuthContent.refreshAuthDB()
+        Thread.sleep(2000)
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setImageResource(R.drawable.ic_action_name)
         fab.backgroundTintList = ColorStateList.valueOf((rgb(240,128,128)))
