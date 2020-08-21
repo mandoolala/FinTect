@@ -8,16 +8,14 @@
 CS496 Special Topics in Computer Science<Implementation of Deepfake Generation Technology and Service Model through the Android App> 
 전산학특강<딥페이크 생성 기술 구현과 이를 이용한 안드로이드 앱 서비스 모델 구현>
 
-
-
-**DeepFake Detection Android App <강민주 이의천 심효진>**
-
+<br>
+<br>
 
 ## System Overview 
 
- Frontend: Android (with Kotlin)
- Backend:Flask,Firebase
- Deep Learning: Pytorch (Model: DeepFake_Xception)
+ Frontend: Android (with Kotlin) <br>
+ Backend:Flask,Firebase <br>
+ Deep Learning: Pytorch (Model: DeepFake_Xception) <br>
 
 PyTorch로 머신러닝 모델을 실행하고, Cloud Storage for Firebase를 통해 요청을 queue형 태로 받아서 처리한다. Flask는 모델의 테스트 자동화를 위한 HTTP 요청처리 (test-add)를 위해 활용하였다.
 
