@@ -4,8 +4,7 @@
 
 <br>
 
-CS496 Special Topics in Computer Science <Implementation of Deepfake Generation Technology and Service Model through the Android App> <br>
-전산학특강 <딥페이크 생성 기술 구현과 이를 이용한 안드로이드 앱 서비스 모델 구현>
+CS496 전산학특강 <딥페이크 생성 기술 구현과 이를 이용한 안드로이드 앱 서비스 모델 구현>
 
 <br>
 <br>
