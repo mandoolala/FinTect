@@ -22,7 +22,7 @@ PyTorch로 머신러닝 모델을 실행하고, Cloud Storage for Firebase를 �
 서버 운영 주체: KCLOUD <br>
 사양: vCPU(2) - MEM(8) - DISK(100), GeForce TITAN-X
 
-*
+
 CS496 전산학특강 <딥페이크 생성 기술 구현과 이를 이용한 안드로이드 앱 서비스 모델 구현> **강민주, 이의천, 심효진**
 
 
