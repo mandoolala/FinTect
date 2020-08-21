@@ -17,6 +17,8 @@ CS496 Special Topics in Computer Science<Implementation of Deepfake Generation T
  Backend:Flask,Firebase <br>
  Deep Learning: Pytorch (Model: DeepFake_Xception) <br>
 
+(모델파일을 올려두지 않음: 모델 파일을 다운로드 받은 후, log_path/Xception_trained_model.pth로 저장)
+
 <br>
 <br>
 
