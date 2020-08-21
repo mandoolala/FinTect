@@ -25,7 +25,7 @@ PyTorch로 머신러닝 모델을 실행하고, Cloud Storage for Firebase를 �
 <br>
 
 서버 운영 주체: KCLOUD <br>
-사양: vCPU(2) - MEM(8) - DISK(100), GeForce TITAN-X가 1장씩 장착된 VM.
+사양: vCPU(2) - MEM(8) - DISK(100), GeForce TITAN-X
 
 
 
