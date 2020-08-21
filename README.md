@@ -17,7 +17,12 @@ CS496 Special Topics in Computer Science<Implementation of Deepfake Generation T
  Backend:Flask,Firebase <br>
  Deep Learning: Pytorch (Model: DeepFake_Xception) <br>
 
+<br>
+<br>
+
 PyTorch로 머신러닝 모델을 실행하고, Cloud Storage for Firebase를 통해 요청을 queue형 태로 받아서 처리한다. Flask는 모델의 테스트 자동화를 위한 HTTP 요청처리 (test-add)를 위해 활용하였다.
+
+<br>
 
 서버 운영 주체: KCLOUD <br>
 사양: vCPU(2) - MEM(8) - DISK(100), GeForce TITAN-X가 1장씩 장착된 VM.
